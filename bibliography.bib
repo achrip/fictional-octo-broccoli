@@ -1,0 +1,159 @@
+@inproceedings{fan-etal-2019-eli5,
+    title = "{ELI}5: Long Form Question Answering",
+    author = "Fan, Angela  and
+      Jernite, Yacine  and
+      Perez, Ethan  and
+      Grangier, David  and
+      Weston, Jason  and
+      Auli, Michael",
+    editor = "Korhonen, Anna  and
+      Traum, David  and
+      M{\`a}rquez, Llu{\'\i}s",
+    booktitle = "Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics",
+    month = jul,
+    year = "2019",
+    address = "Florence, Italy",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/P19-1346",
+    doi = "10.18653/v1/P19-1346",
+    pages = "3558--3567",
+    abstract = "We introduce the first large-scale corpus for long form question answering, a task requiring elaborate and in-depth answers to open-ended questions. The dataset comprises 270K threads from the Reddit forum {``}Explain Like I{'}m Five{''} (ELI5) where an online community provides answers to questions which are comprehensible by five year olds. Compared to existing datasets, ELI5 comprises diverse questions requiring multi-sentence answers. We provide a large set of web documents to help answer the question. Automatic and human evaluations show that an abstractive model trained with a multi-task objective outperforms conventional Seq2Seq, language modeling, as well as a strong extractive baseline. However, our best model is still far from human performance since raters prefer gold responses in over 86{\%} of cases, leaving ample opportunity for future improvement.",
+}
+@inproceedings{stelmakh-etal-2022-asqa,
+    title = "{ASQA}: Factoid Questions Meet Long-Form Answers",
+    author = "Stelmakh, Ivan  and
+      Luan, Yi  and
+      Dhingra, Bhuwan  and
+      Chang, Ming-Wei",
+    editor = "Goldberg, Yoav  and
+      Kozareva, Zornitsa  and
+      Zhang, Yue",
+    booktitle = "Proceedings of the 2022 Conference on Empirical Methods in Natural Language Processing",
+    month = dec,
+    year = "2022",
+    address = "Abu Dhabi, United Arab Emirates",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2022.emnlp-main.566",
+    doi = "10.18653/v1/2022.emnlp-main.566",
+    pages = "8273--8288",
+    abstract = "Recent progress on open domain factoid question answering (QA) does not easily transfer to the task of long-form QA, where the goal is to answer questions that require in-depth explanations. The hurdles include a lack of high-quality data and the absence of a well-defined notion of an answer{'}s quality. In this work, we address these problems by releasing a novel dataset and a task that we call ASQA (Answer Summaries for Questions which are Ambiguous); and proposing a reliable metric for measuring performance on ASQA. Our task focuses on ambiguous factoid questions which have different correct answers depending on the interpretation. Answers to ambiguous questions should combine factual information from multiple sources into a coherent long-form summary that resolves the ambiguity. In contrast to existing long-form QA tasks (such as ELI5), ASQA admits a clear notion of correctness: a user faced with a good summary should be able to answer different interpretations of the original ambiguous question. Our analysis demonstrates an agreement between this metric and human judgments, and reveals a considerable gap between human performance and strong baselines.",
+}
+@inproceedings{cohen-etal-2021-wikisum,
+    title = "{W}iki{S}um: Coherent Summarization Dataset for Efficient Human-Evaluation",
+    author = "Cohen, Nachshon  and
+      Kalinsky, Oren  and
+      Ziser, Yftah  and
+      Moschitti, Alessandro",
+    editor = "Zong, Chengqing  and
+      Xia, Fei  and
+      Li, Wenjie  and
+      Navigli, Roberto",
+    booktitle = "Proceedings of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (Volume 2: Short Papers)",
+    month = aug,
+    year = "2021",
+    address = "Online",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2021.acl-short.28",
+    doi = "10.18653/v1/2021.acl-short.28",
+    pages = "212--219",
+    abstract = "Recent works made significant advances on summarization tasks, facilitated by summarization datasets. Several existing datasets have the form of coherent-paragraph summaries. However, these datasets were curated from academic documents that were written for experts, thus making the essential step of assessing the summarization output through human-evaluation very demanding. To overcome these limitations, we present a dataset based on article summaries appearing on the WikiHow website, composed of how-to articles and coherent-paragraph summaries written in plain language. We compare our dataset attributes to existing ones, including readability and world-knowledge, showing our dataset makes human evaluation significantly easier and thus, more effective. A human evaluation conducted on PubMed and the proposed dataset reinforces our findings.",
+}
+@misc{giorgi-etal-2023-open,
+      title={Open Domain Multi-document Summarization: A Comprehensive Study of Model Brittleness under Retrieval}, 
+      author={John Giorgi and Luca Soldaini and Bo Wang and Gary Bader and Kyle Lo and Lucy Lu Wang and Arman Cohan},
+      year={2023},
+      eprint={2212.10526},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
+@article{hayashi-etal-2021-wikiasp,
+    author = {Hayashi, Hiroaki and Budania, Prashant and Wang, Peng and Ackerson, Chris and Neervannan, Raj and Neubig, Graham},
+    title = "{WikiAsp: A Dataset for Multi-domain Aspect-based Summarization}",
+    journal = {Transactions of the Association for Computational Linguistics},
+    volume = {9},
+    pages = {211-225},
+    year = {2021},
+    month = {03},
+    abstract = "{Aspect-based summarization is the task of generating focused summaries based on specific points of interest. Such summaries aid efficient analysis of text, such as quickly understanding reviews or opinions from different angles. However, due to large differences in the type of aspects for different domains (e.g., sentiment, product features), the development of previous models has tended to be domain-specific. In this paper, we propose WikiAsp,1 a large-scale dataset for multi-domain aspect- based summarization that attempts to spur research in the direction of open-domain aspect-based summarization. Specifically, we build the dataset using Wikipedia articles from 20 different domains, using the section titles and boundaries of each article as a proxy for aspect annotation. We propose several straightforward baseline models for this task and conduct experiments on the dataset. Results highlight key challenges that existing summarization models face in this setting, such as proper pronoun handling of quoted sources and consistent explanation of time-sensitive events.}",
+    issn = {2307-387X},
+    doi = {10.1162/tacl_a_00362},
+    url = {https://doi.org/10.1162/tacl\_a\_00362},
+    eprint = {https://direct.mit.edu/tacl/article-pdf/doi/10.1162/tacl\_a\_00362/1924027/tacl\_a\_00362.pdf},
+}
+@article{wei-etal-2022-chain,
+  author       = {Jason Wei and
+                  Xuezhi Wang and
+                  Dale Schuurmans and
+                  Maarten Bosma and
+                  Ed H. Chi and
+                  Quoc Le and
+                  Denny Zhou},
+  title        = {Chain of Thought Prompting Elicits Reasoning in Large Language Models},
+  journal      = {CoRR},
+  volume       = {abs/2201.11903},
+  year         = {2022},
+  url          = {https://arxiv.org/abs/2201.11903},
+  eprinttype    = {arXiv},
+  eprint       = {2201.11903},
+  timestamp    = {Fri, 22 Apr 2022 16:06:31 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-2201-11903.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+@article{geva-etal-2021-aristotle,
+  author       = {Mor Geva and
+                  Daniel Khashabi and
+                  Elad Segal and
+                  Tushar Khot and
+                  Dan Roth and
+                  Jonathan Berant},
+  title        = {Did Aristotle Use a Laptop? {A} Question Answering Benchmark with
+                  Implicit Reasoning Strategies},
+  journal      = {CoRR},
+  volume       = {abs/2101.02235},
+  year         = {2021},
+  url          = {https://arxiv.org/abs/2101.02235},
+  eprinttype    = {arXiv},
+  eprint       = {2101.02235},
+  timestamp    = {Thu, 21 Jan 2021 14:42:30 +0100},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-2101-02235.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+@article{hendrycks-etal-2020-measuring,
+  author       = {Dan Hendrycks and
+                  Collin Burns and
+                  Steven Basart and
+                  Andy Zou and
+                  Mantas Mazeika and
+                  Dawn Song and
+                  Jacob Steinhardt},
+  title        = {Measuring Massive Multitask Language Understanding},
+  journal      = {CoRR},
+  volume       = {abs/2009.03300},
+  year         = {2020},
+  url          = {https://arxiv.org/abs/2009.03300},
+  eprinttype    = {arXiv},
+  eprint       = {2009.03300},
+  timestamp    = {Thu, 17 Sep 2020 12:49:52 +0200},
+  biburl       = {https://dblp.org/rec/journals/corr/abs-2009-03300.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
+@inproceedings{ho-etal-2020-constructing,
+  title = "Constructing A Multi-hop {QA} Dataset for Comprehensive Evaluation of Reasoning Steps",
+  author = "Ho, Xanh  and
+    Duong Nguyen, Anh-Khoa  and
+    Sugawara, Saku  and
+    Aizawa, Akiko",
+  editor = "Scott, Donia  and
+    Bel, Nuria  and
+    Zong, Chengqing",
+  booktitle = "Proceedings of the 28th International Conference on Computational Linguistics",
+  month = dec,
+  year = "2020",
+  address = "Barcelona, Spain (Online)",
+  publisher = "International Committee on Computational Linguistics",
+  url = "https://aclanthology.org/2020.coling-main.580",
+  doi = "10.18653/v1/2020.coling-main.580",
+  pages = "6609--6625",
+  abstract = "A multi-hop question answering (QA) dataset aims to test reasoning and inference skills by requiring a model to read multiple paragraphs to answer a given question. However, current datasets do not provide a complete explanation for the reasoning process from the question to the answer. Further, previous studies revealed that many examples in existing multi-hop datasets do not require multi-hop reasoning to answer a question. In this study, we present a new multi-hop QA dataset, called 2WikiMultiHopQA, which uses structured and unstructured data. In our dataset, we introduce the evidence information containing a reasoning path for multi-hop questions. The evidence information has two benefits: (i) providing a comprehensive explanation for predictions and (ii) evaluating the reasoning skills of a model. We carefully design a pipeline and a set of templates when generating a question-answer pair that guarantees the multi-hop steps and the quality of the questions. We also exploit the structured format in Wikidata and use logical rules to create questions that are natural but still require multi-hop reasoning. Through experiments, we demonstrate that our dataset is challenging for multi-hop models and it ensures that multi-hop reasoning is required.",
+}
+
