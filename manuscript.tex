@@ -57,6 +57,31 @@ alfi.zakiyyah@binus.edu}
 \end{IEEEkeywords}
 
 \section{Introduction}
+In recent years, Language Models (LMs) have been developing in such an
+astonishing rate; what once was a basic sentiment analysis algorithm is now able to handle
+increasingly complex tasks such as long form question answering \cite{stelmakh-etal-2022-asqa,fan-etal-2019-eli5},
+open-domain sumarization \cite{cohen-etal-2021-wikisum,giorgi-etal-2023-open,hayashi-etal-2021-wikiasp}
+and chain-of-thought (CoT) reasoning \cite{geva-etal-2021-aristotle,hendrycks-etal-2020-measuring,
+ho-etal-2020-constructing,wei-etal-2022-chain,geva-etal-2021-aristotle}. This remarkable progress has
+led to a wide range of applications across various domains, including the legal and law sector, where
+language models are now utilized for ... \cite{} % harus ada yang menjelaskan tentang legal law (apa contohnya)
+
+% Tambahin buat bahas BPK itu apa yang kemungkinan adalah fungsi bpk ah... 
+While Indonesia's BPK portal \cite{} provide a comprehensive database of the country's laws, it is not without
+its limitations. For example, the sheer volume of legal information can be overwhelming, and navigating through
+the website can be cumbersome. However, there is significant potential in applying LMs to improve the current
+situation. Through their capabilities, it may be possible to develop more effective search algorithms, enhance
+the accessibility of legal information, even automate the process of legal research, which would ultimately
+make it easier for citizens and legal professionals alike to navigate and utilize the vast repository of
+Indonesian laws.
+
+In this paper, we propose a generative model that is able to respond to a certain statutory law questions.
+Namely, Indonesia's Non-Convention Vessel Statutories \cite{}. By leveraging a retriever that works over the corpus
+of statutories to fetch a set of corresponding legislative articles, the generative model would then be able
+to formulate a more comprehensive answer. This popular methodology known as the "retrieve-then-read" pipeline
+\cite{} is the foundation for our proposed solution to the problem stated above.
+
+% Final remark 1: Secara keseluruhan oke, cuma kalau bisa tambahin.
 
 \section{Material and Related Works}
 
