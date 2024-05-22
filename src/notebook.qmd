@@ -1,5 +1,4 @@
 ---
-title: LLM Preparation - WizardLM
 jupyter:
   jupytext:
     formats: 'qmd:quarto,ipynb'
@@ -15,8 +14,8 @@ jupyter:
 ---
 
 ```{python}
-!pip -q install langchain tiktoken chromadb pypdf transformers InstructorEmbedding
-!pip -q install accelerate bitsandbytes sentencepiece Xformers
+!pip -q install langchain langchain-community tiktoken chromadb pypdf transformers 
+!pip -q install accelerate bitsandbytes sentencepiece Xformers InstructorEmbedding
 ```
 
 
@@ -24,11 +23,11 @@ jupyter:
 ```{python}
 import torch 
 import transformers
-from transformers import LlamaTokenizer, LlamaForCasualLM, GenerationConfig, pipeline
+from transformers import LlamaTokenizer, LlamaForCausalLM, GenerationConfig, pipeline
 
 tokenizer = LlamaTokenizer.from_pretrained("TheBloke/wizardLM-7b-HF")
 
-model = LlamaToeknizer.from_pretrained("TheBloke/wizardLM-7b-HF", 
+model = LlamaForCausalLM.from_pretrained("TheBloke/wizardLM-7b-HF", 
                                         load_in_8bit=True,
                                         device_map='auto', 
                                         torch_dtype=torch.float16,
@@ -78,7 +77,7 @@ from langchain.embeddings import HuggingFaceInstructEmbeddings
 ```{python}
 # Load and process the text files
 # loader = TextLoader('single_text_file.txt')
-loader = DirectoryLoader('./assets/ncvs_documents', glob="./*.pdf", loader_cls=PyPDFLoader)
+loader = DirectoryLoader('../assets/ncvs_documents', glob="./*.pdf", loader_cls=PyPDFLoader)
 
 documents = loader.load()
 ```
