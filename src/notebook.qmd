@@ -1,66 +1,33 @@
 ---
+title: RAG Implementation for QA Model
 jupyter:
   jupytext:
-    formats: 'qmd:quarto,ipynb'
+    formats: 'ipynb,qmd:quarto'
     text_representation:
       extension: .qmd
       format_name: quarto
       format_version: '1.0'
       jupytext_version: 1.16.2
   kernelspec:
-    display_name: asr
+    display_name: rag
     language: python
-    name: asr
+    name: rag
 ---
 
 ```{python}
-!pip -q install langchain langchain-community tiktoken chromadb pypdf transformers 
+!pip -q install langchain langchain-chroma langchain-community langchain-huggingface
+!pip -q install tiktoken chromadb pypdf transformers sentence_transformers==2.2.2
 !pip -q install accelerate bitsandbytes sentencepiece Xformers InstructorEmbedding
 ```
 
-
-
-```{python}
-import torch 
-import transformers
-from transformers import LlamaTokenizer, LlamaForCausalLM, GenerationConfig, pipeline
-
-tokenizer = LlamaTokenizer.from_pretrained("TheBloke/wizardLM-7b-HF")
-
-model = LlamaForCausalLM.from_pretrained("TheBloke/wizardLM-7b-HF", 
-                                        load_in_8bit=True,
-                                        device_map='auto', 
-                                        torch_dtype=torch.float16,
-                                        low_cpu_mem_usage=True
-                                        )
-```
-
-```{python}
-from langchain.llms import HuggingFacePipeline
-
-pipe = pipeline(
-        "text-generation", 
-        model=model,
-        tokenizer=tokenizer,
-        max_length=1024,
-        temperature=0,
-        top_p=.95,
-        repetition_penalty=1.15
-      )
-
-local_llm = HuggingFacePipeline(pipeline=pipe)
-```
-
-# LangChain multi-doc retriever with ChromaDB
-
-## Setting up LangChain
+# Setting up LangChain
 
 ```{python}
 import os
 ```
 
 ```{python}
-from langchain.vectorstores import Chroma
+from langchain_chroma import Chroma
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 from langchain.chains import RetrievalQA
@@ -91,7 +58,7 @@ texts = text_splitter.split_documents(documents)
 ## HuggingFace Instructor Embeddings
 
 ```{python}
-from langchain.embeddings import HuggingFaceInstructEmbeddings
+from langchain_community.embeddings import HuggingFaceInstructEmbeddings
 
 instructor_embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl",
                                                       model_kwargs={"device": "cuda"})
@@ -112,6 +79,14 @@ vectordb = Chroma.from_documents(documents=texts,
                                  persist_directory=persist_directory)
 ```
 
+```{python}
+# If db exists, just load
+assert os.path.exists("./db"), "No existing database found~"
+
+vectorDB = Chroma(persist_directory="./db", 
+                  embedding_function=embedding)
+```
+
 ## Make a retriever
 
 ```{python}
@@ -125,7 +100,7 @@ retriever = vectordb.as_retriever(search_kwargs={"k": 3})
 qa_chain = RetrievalQA.from_chain_type(llm=local_llm,
                                   chain_type="stuff",
                                   retriever=retriever,
-                                  return_source_documents=True)
+                                  return_source_documents=False)
 ```
 
 ## Cite sources
@@ -150,4 +125,110 @@ def process_llm_response(llm_response):
     print('\n\nSources:')
     for source in llm_response["source_documents"]:
         print(source.metadata['source'])
+```
+
+# List of Working Models
+
+> Remember to use `instruct` models!
+
+- TheBloke/wizardLM-7B-HF
+- mistralai/Mistral-7B-Instruct-v0.3
+
+> notes:
+> 7B models cannot work on my (Ashraf) local machine; lack of VRAM is the cause
+
+## Import WizardLM
+
+```{python}
+import torch 
+import transformers
+from transformers import AutoTokenizer, AutoModelForCausalLM, GenerationConfig, pipeline, BitsAndBytesConfig
+
+access_token = "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"
+model_name = "TheBloke/wizardLM-7B-HF"
+quantization_config = BitsAndBytesConfig(load_in_4bit=True)
+
+wiz_tokenizer = AutoTokenizer.from_pretrained(model_name, token=access_token)
+
+wiz_model = AutoModelForCausalLM.from_pretrained(model_name,
+                                        quantization_config=quantization_config
+                                        torch_dtype=torch.float16,
+                                        device_map="auto",
+                                        low_cpu_mem_usage=True,
+                                        token=access_token,
+                                        )
+```
+
+```{python}
+from langchain.llms import HuggingFacePipeline
+
+wiz_pipe = pipeline(
+        "text-generation", 
+        model=model_name,
+        tokenizer=tokenizer,
+        truncation=True,
+        max_length=1024,
+        do_sample=True,
+        temperature=.1
+        top_p=.95,
+        repetition_penalty=1.15
+      )
+```
+
+```{python}
+query = "How many prefectures are there in Japan?"
+output = wiz_pipe(query)
+print(output)
+```
+
+## Import Google Gemma
+
+```{python}
+import torch 
+import transformers
+from transformers import AutoTokenizer, AutoModelForCausalLM, GenerationConfig, pipeline, BitsAndBytesConfig
+
+access_token = "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"
+model_name = "TheBloke/wizardLM-7B-HF"
+quantization_config = BitsAndBytesConfig(load_in_4bit=True)
+
+gemma_tokenizer = AutoTokenizer.from_pretrained(model_name, token=access_token)
+
+gemma_model = AutoModelForCausalLM.from_pretrained(model_name,
+                                        quantization_config=quantization_config
+                                        torch_dtype=torch.bfloat16,
+                                        device_map="auto",
+                                        low_cpu_mem_usage=True,
+                                        token=access_token,
+                                        )
+```
+
+```{python}
+from langchain_huggingface import HuggingFacePipeline
+
+gemma_pipe = pipeline(
+            "text-generation", 
+            model=gemma_model,
+            tokenizer=gemma_tokenizer,
+            truncation=True,
+            max_new_tokens=512,
+            do_sample=True,
+            temperature=.1,
+            top_p=.95,
+            repetition_penalty=1.15
+            )
+```
+
+```{python}
+query = "How many prefectures are there in Japan?"
+output = gemma_pipe(query)
+print(output)
+```
+
+```{python}
+input_text = "How many prefectures are there in Japan?"
+input_ids = tokenizer(input_text, return_tensors="pt").to("cuda")
+
+outputs = model.generate(**input_ids)
+print(tokenizer.decode(outputs[0])
 ```
