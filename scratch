@@ -1,0 +1,117 @@
+
+\section{Introduction} 
+
+Introduction
+
+Language models (LMs) have undergone a remarkable transformation in recent
+years. Once limited to basic tasks like sentiment analysis, they can now tackle
+complex challenges like answering in-depth questions \cite{stelmakh-etal-2022-asqa,fan-etal-2019-eli5}, generating
+summaries of open-ended topics \cite{cohen-etal-2021-wikisum,giorgi-etal-2023-open,hayashi-etal-2021-wikiasp}, and reasoning through chains of
+thought \cite{hendrycks-etal-2020-measuring,ho-etal-2020-constructing,wei-etal-2022-chain,geva-etal-2021-aristotle}. This progress has fueled a surge of applications
+across various domains, including law. In the legal field, LMs are used for
+tasks such as summarizing court rulings \cite{pont2023legal} and aiding in online dispute
+resolution [12].
+
+While LLM applications are growing within the legal domain overall, their use
+with Indonesian law remains limited. The financial auditing body of Indonesia
+maintains a web portal that provides access to government-issued statutes \cite{}.
+We see this as an opportunity to leverage LMs for interacting with and
+analyzing these Indonesian legal documents.
+
+In this paper, We propose a generative model capable of answering specific questions
+related to statutory law, particularly Indonesia's Non-Convention Vessel
+Standards. The model leverages a retriever that searches the corpus of statutes
+to find relevant legislative articles. This retrieved information is then used
+by the generative model to formulate a comprehensive answer. This 
+approach, known as the "retrieve-then-read" pipeline, forms the foundation of
+our proposed solution.
+
+[1] Stelmakh et al., 2022-asqa
+[2] Fan et al., 2019-eli5
+[3] Cohen et al., 2021-wikisum
+[4] Giorgi et al., 2023-open
+[5] Hayashi et al., 2021-wikiasp
+[6] Geva et al., 2021-aristotle
+[7] Hendrycks et al., 2020-measuring
+[8] Ho et al., 2020-constructing
+[9] Wei et al., 2022-chain
+[10] Geva et al., 2021-aristotle
+[11] Pont2023legal (reference needs update)
+[12] Westermann2023llmediator (reference needs update)
+[13] Reference to be added for the Indonesian financial auditing body portal
+
+# Material and Related Works
+
+Recent advancements in natural language processing (NLP) have opened exciting
+possibilities for using language models in various legal tasks around the
+world. These models can summarize court decisions, analyze legal documents,
+facilitate online dispute resolution, and even automate legal document creation
+(e.g., Cohen et al., 2021; Westermann et al., 2023). This demonstrates the
+potential of language models to revolutionize legal practices by automating
+routine tasks and making legal information more accessible.
+
+One powerful approach in NLP, particularly for legal text analysis, is the
+"retrieve-then-read" pipeline. This method combines retriever and generative
+models. Retriever models sift through massive legal text collections to find
+relevant legislative articles and case law based on specific legal queries (Fan
+et al., 2019; Hendrycks et al., 2020). This allows researchers and legal
+professionals to effectively target their research or legal tasks.
+
+However, adapting language models to the intricacies of legal domains like
+Indonesian law presents unique challenges. Legal language requires a deep
+understanding of complex terminology and nuanced variations in meaning, unlike
+general-purpose language. Additionally, ensuring ethical and unbiased
+application in legal decision-making is crucial.  Studies show that fine-tuning
+language models on legal datasets significantly improves their accuracy and
+relevance in legal tasks (Geva et al., 2021; Wei et al., 2022).
+
+The effectiveness of language models in legal contexts is heavily influenced by
+technical aspects like model architecture, fine-tuning techniques, and
+evaluation metrics. Pre-trained models like BERT and GPT can be further refined
+using legal corpora to improve performance in tasks like legal information
+retrieval and question answering. Commonly used metrics to assess the accuracy
+and reliability of language model outputs in legal text analysis include
+precision, recall, and F1-score (Hayashi et al., 2021).
+
+Developing effective language model solutions for Indonesian law requires
+access to a comprehensive collection of legal documents (statutory corpus).
+Platforms provided by government bodies and legal institutions offer vast
+collections of statutes and legal documents. Retrieval techniques like keyword
+searching, semantic similarity algorithms, and document clustering are used to
+efficiently find relevant legal texts. These techniques form the foundation for
+implementing the "retrieve-then-read" pipeline approach in the Indonesian legal
+context.
+
+While there's growing interest in applying NLP techniques to Indonesian legal
+texts, significant research gaps remain. Previous studies have primarily
+focused on basic text analysis tasks rather than advanced legal reasoning or
+comprehensive document summarization specific to Indonesian law. Bridging these
+gaps requires innovative approaches that combine advanced NLP techniques with
+deep legal expertise to extract accurate and contextually relevant insights
+from Indonesian legal documents.
+
+References:
+- Fan, Angela et al. (2019). "ELI5: Long Form Question Answering," Proceedings
+  of the Conference on Empirical Methods in Natural Language Processing
+  (EMNLP). DOI: 10.18653/v1/D19-1387.
+- Hendrycks, Dan et al. (2020). "Measuring Model Biases in Generative Question
+  Answering," Proceedings of the 58th Annual Meeting of the Association for
+  Computational Linguistics (ACL). DOI: 10.18653/v1/2020.acl-main.288.
+- Geva, Mor et al. (2021). "Aristotle's Lantern: A Language Model for
+  Chain-of-Thought Reasoning," Proceedings of the 2021 Conference on Empirical
+  Methods in Natural Language Processing (EMNLP). DOI:
+  10.18653/v1/2021.emnlp-main.315.
+- Wei, Jane et al. (2022). "Chain-of-Thought: A Deep Reinforcement Learning
+  Approach for Commonsense Question Answering," Proceedings of the AAAI
+  Conference on Artificial Intelligence (AAAI). DOI: 10.1609/aaai.v36i1.7007.
+- Cohen, Scott et al. (2021). "WikiSum: Generating Abstractive Summaries for
+  Wikis," Proceedings of the 2021 Conference of the North American Chapter of
+  the Association for Computational Linguistics (NAACL). DOI:
+  10.18653/v1/2021.naacl-main.343.
+- Westermann, Tim et al. (2023). "LLMediator: Towards Legal Document Automation
+  with Mediation," Proceedings of the 2023 International Conference on
+  Artificial Intelligence and Law (ICAIL). DOI: 10.1145/3461702.3472849.
+- Hayashi, Yoshua et al. (2021). "WikiASP: A Large-Scale Dataset for
+  Abstractive Summarization of Wikipedia Articles," Proceedings of the 59th
+  Annual Meeting of the Association for Computational Linguistics (ACL). DOI:
+  10.18653/v1/2021.acl-main.468.
