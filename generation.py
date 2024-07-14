@@ -11,22 +11,22 @@ class TextGenerationModel:
         self.retriever = DocumentRetriever()
         pass
 
-    def generate_prompt_items(self, query: str): 
-        retrieve = self.retriever.collection.query(
+    def __generate_prompt_items(self, query: str): 
+        retrieved_texts = self.retriever.collection.query(
                 query_texts=[query], 
                 n_results=self.k
                 )
 
-        context = [["<ctx>" + s + "</ctx>" for s in chunk] for chunk in retrieve.get("documents")]
+        context = [["<ctx>" + s + "</ctx>" for s in chunk] for chunk in retrieved_texts.get("documents")]
         context = "".join("\n\n".join(chunk) for chunk in context)
 
-        source = [["<src>" + "Source: " + s["source"] + ", page: " + str(s["page"]) + "</src>" for s in chunk] for chunk in retrieve.get("metadatas")]
+        source = [["<src>" + "Source: " + s["source"] + ", page: " + str(s["page"]) + "</src>" for s in chunk] for chunk in retrieved_texts.get("metadatas")]
         source  = "".join("\n\n".join(chunk) for chunk in source)
         return context, source
 
     def generate_openai_response(self, query): 
         api_key = os.getenv('OPENAI_API_KEY') 
-        context, source = self.generate_prompt_items(query)
+        context, source = self.__generate_prompt_items(query)
         client = OpenAI(api_key=api_key)
 
         return client.chat.completions.create(
@@ -62,6 +62,6 @@ class TextGenerationModel:
 if __name__ == "__main__": 
     model = TextGenerationModel(7)
     model.__dict__
-    context, source = model.generate_prompt_items("what should i consider when assembling the marine evacuation system?")
+    context, source = model.__generate_prompt_items("what should i consider when assembling the marine evacuation system?")
     print(f"context: {context}")
     print(f"sources: {source}")

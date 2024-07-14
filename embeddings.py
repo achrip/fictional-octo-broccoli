@@ -21,9 +21,9 @@ class DocumentRetriever:
         self.__client = chromadb.PersistentClient(path=self.__dir)
         self.__embedding_function = CustomEmbeddingFunction()
 
-        documents = self.get_documents()
-        documents = self.clean_documents(documents)
-        raw_text = self.split_documents(documents, 512, 250) # make sure chunk size and overlap
+        documents = self.__get_documents()
+        documents = self.__clean_documents(documents)
+        raw_text = self.__split_documents(documents, 512, 250) # make sure chunk size and overlap
                                                               # matches the embedding model limit.
 
         try: 
@@ -35,7 +35,7 @@ class DocumentRetriever:
             self.populate_database(raw_text)
 
 
-    def get_documents(self): 
+    def __get_documents(self): 
         path = './assets/'
         loader = DirectoryLoader(path=path, 
                                  glob='*/*.pdf', 
@@ -43,14 +43,14 @@ class DocumentRetriever:
         documents = loader.load()
         return documents
 
-    def clean_documents(self, documents): 
+    def __clean_documents(self, documents): 
         for i in range(len(documents)): 
             cleaned_texts = re.sub('\s+', ' ', documents[i].page_content)
             documents[i].page_content = cleaned_texts
 
         return documents
 
-    def split_documents(self, 
+    def __split_documents(self, 
                         documents,
                         size: int, 
                         overlap: int):
