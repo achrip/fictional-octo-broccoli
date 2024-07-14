@@ -21,9 +21,9 @@ class DocumentRetriever:
         self.__client = chromadb.PersistentClient(path=self.__dir)
         self.__embedding_function = CustomEmbeddingFunction()
 
-        documents = self._get_documents()
-        documents = self._clean_documents(documents)
-        raw_text = self._split_documents(documents, 512, 250) # make sure chunk size and overlap
+        documents = self.get_documents()
+        documents = self.clean_documents(documents)
+        raw_text = self.split_documents(documents, 512, 250) # make sure chunk size and overlap
                                                               # matches the embedding model limit.
 
         try: 
@@ -32,10 +32,10 @@ class DocumentRetriever:
         except ValueError: 
             self.collection = self.__client.create_collection(name='statutoryDB', 
                                                             embedding_function=self.__embedding_function)
-            self.__populate_database(raw_text)
+            self.populate_database(raw_text)
 
 
-    def _get_documents(self): 
+    def get_documents(self): 
         path = './assets/'
         loader = DirectoryLoader(path=path, 
                                  glob='*/*.pdf', 
@@ -43,14 +43,14 @@ class DocumentRetriever:
         documents = loader.load()
         return documents
 
-    def _clean_documents(self, documents): 
+    def clean_documents(self, documents): 
         for i in range(len(documents)): 
             cleaned_texts = re.sub('\s+', ' ', documents[i].page_content)
             documents[i].page_content = cleaned_texts
 
         return documents
 
-    def _split_documents(self, 
+    def split_documents(self, 
                         documents,
                         size: int, 
                         overlap: int):
@@ -70,8 +70,8 @@ class DocumentRetriever:
         raw_text = splitter.split_documents(documents)
         return raw_text
 
-    def __populate_database(self, raw_text): 
-        batches = create_batches(api=self.client, 
+    def populate_database(self, raw_text): 
+        batches = create_batches(api=self.__client, 
                                  ids=["NCVS{n:03}".format(n=i) for i in range(1, len(raw_text)+1)],
                                  documents=[s.page_content for s in raw_text], 
                                  metadatas=[s.metadata for s in raw_text])
@@ -80,3 +80,14 @@ class DocumentRetriever:
                     ids=batch[0], 
                     documents=batch[3], 
                     metadatas=batch[2])
+
+if __name__ == "__main__": 
+        embedder = DocumentRetriever()
+        print(embedder.__dict__)
+        retrieved_context = embedder.collection.query(
+                query_texts=["what is NCVS?"], 
+                n_results=7)
+        print(retrieved_context)
+        print("--done--")
+        pass
+        

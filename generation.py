@@ -1,17 +1,18 @@
 from openai import OpenAI
 from langchain.prompts import ChatPromptTemplate
 from langchain.chains import RetrievalQA
-from .embeddings import DocumentRetriever
+from embeddings import DocumentRetriever
+import os
 
 
 class TextGenerationModel: 
     def __init__(self, k) -> None:
         self.k = k
-        self.collection = DocumentRetriever().collection
+        self.retriever = DocumentRetriever()
         pass
 
-    def __generate_prompt_items(self, query: str): 
-        retrieve = self.collection.query(
+    def generate_prompt_items(self, query: str): 
+        retrieve = self.retriever.collection.query(
                 query_texts=[query], 
                 n_results=self.k
                 )
@@ -24,9 +25,9 @@ class TextGenerationModel:
         return context, source
 
     def generate_openai_response(self, query): 
-        OPENAI_API_KEY = '' 
-        context, source = self.__generate_prompt_items(query)
-        client = OpenAI(api_key=OPENAI_API_KEY)
+        api_key = os.getenv('OPENAI_API_KEY') 
+        context, source = self.generate_prompt_items(query)
+        client = OpenAI(api_key=api_key)
 
         return client.chat.completions.create(
                 model="gpt-3.5-turbo", 
@@ -57,3 +58,10 @@ class TextGenerationModel:
     def generate_response(self, query): 
         # TODO: implement generation process for local LLMs
         pass
+
+if __name__ == "__main__": 
+    model = TextGenerationModel(7)
+    model.__dict__
+    context, source = model.generate_prompt_items("what should i consider when assembling the marine evacuation system?")
+    print(f"context: {context}")
+    print(f"sources: {source}")

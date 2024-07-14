@@ -1,5 +1,5 @@
 import pandas as pd
-from .generation import TextGenerationModel
+from generation import TextGenerationModel
 
 data = {
         'Question': [
