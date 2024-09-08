@@ -9,6 +9,7 @@ class CustomEmbeddingFunction(EmbeddingFunction[Documents]):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.model = SentenceTransformer('all-distilroberta-v1', device='cuda')
+#       self.model = SentenceTransformer('nomic-embed-text-v1', device='cuda')
 
     def __call__(self, input: Documents) -> Embeddings:
         sentences = input

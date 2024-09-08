@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "ncvs-rag"
+version = "0.1.0"
+description = "Retrieval Augmented Generation for interactive exploration of the NCVS Indonesia book."
+authors = ["Ashraf Alif Adillah <ashraf.alif@gmail.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.10"
+gradio = "^4.38.1"
+langchain = "^0.2.7"
+langchain-community = "^0.2.7"
+pypdf = "^4.3.0"
+transformers = "^4.42.4"
+accelerate = "^0.32.1"
+xformers = "^0.0.27"
+sentencepiece = "^0.2.0"
+bitsandbytes = "^0.43.1"
+tiktoken = "^0.7.0"
+chromadb = "^0.5.4"
+typer = "^0.12.3"
+semantic-split = "^0.1.0"
+cryptography = "^42.0.8"
+torch = {version = "^2.3.1+cu121", source = "pytorch-cuda"}
+openai = "^1.35.14"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.2"
+
+
+[[tool.poetry.source]]
+name = "pytorch-cuda"
+url = "https://download.pytorch.org/whl/cu121"
+priority = "explicit"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
